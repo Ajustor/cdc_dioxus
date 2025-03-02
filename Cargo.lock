@@ -790,7 +790,6 @@ dependencies = [
  "dioxus-config-macro",
  "dioxus-core",
  "dioxus-core-macro",
- "dioxus-desktop",
  "dioxus-devtools",
  "dioxus-document",
  "dioxus-fullstack",
@@ -972,7 +971,6 @@ dependencies = [
  "base64",
  "bytes",
  "ciborium",
- "dioxus-desktop",
  "dioxus-devtools",
  "dioxus-history",
  "dioxus-lib",
@@ -986,7 +984,6 @@ dependencies = [
  "serde",
  "server_fn",
  "tracing",
- "web-sys",
 ]
 
 [[package]]
