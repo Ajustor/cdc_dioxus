@@ -26,10 +26,14 @@ jobs:
     - name: Install Android SDK
       run: |
         sudo apt-get update
-        sudo apt-get install -y android-sdk-libsparse-utils android-sdk-platform-tools
-        export ANDROID_HOME=${ANDROID_HOME:-$HOME/android-sdk}
-        export PATH=$ANDROID_HOME/tools/bin:$PATH
-        echo "y" | sdkmanager --install "ndk;21.4.7075529"
+        sudo apt-get install -y wget unzip
+        wget https://dl.google.com/android/repository/commandlinetools-linux-7302050_latest.zip -O sdk-tools.zip
+        unzip sdk-tools.zip -d $HOME/android-sdk
+        yes | $HOME/android-sdk/cmdline-tools/bin/sdkmanager --licenses
+        $HOME/android-sdk/cmdline-tools/bin/sdkmanager "platform-tools" "platforms;android-30" "build-tools;30.0.3" "ndk;21.4.7075529"
+        export ANDROID_HOME=$HOME/android-sdk
+        export PATH=$ANDROID_HOME/cmdline-tools/bin:$PATH
+
 
     - name: Install Dioxus CLI
       run: cargo install dioxus-cli
