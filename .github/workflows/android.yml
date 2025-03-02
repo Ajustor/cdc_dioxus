@@ -41,7 +41,7 @@ jobs:
 
     - name: Bundle Android App
       run: |
-        export ANDROID_NDK_HOME=$ANDROID_HOME/ndk/21.4.7075529
+        export ANDROID_NDK_HOME=$HOME/android-sdk/ndk/21.4.7075529
         dx bundle --platform android
 
     - name: Upload APK
