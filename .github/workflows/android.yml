@@ -16,6 +16,12 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Set up JDK 23
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'adopt'
+        java-version: '23'
+
     - name: Set up Rust
       uses: actions-rs/toolchain@v1
       with:
@@ -42,7 +48,7 @@ jobs:
     - name: Bundle Android App
       run: |
         export ANDROID_NDK_HOME=$HOME/android-sdk/ndk/21.4.7075529
-        dx build --platform android
+        cargo clean
         dx bundle --platform android
 
     - name: Upload APK
