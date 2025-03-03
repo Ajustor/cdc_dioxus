@@ -17,7 +17,7 @@ let
     includeSystemImages = false;
     systemImageTypes = [ "google_apis_playstore" ];
     abiVersions = [ "armeabi-v7a" "arm64-v8a" ];
-    cmakeVersions = [ "3.10.2" ];
+    cmakeVersions = [ "3.31.5" ];
     includeNDK = true;
     ndkVersions = ["28.0.13004108"];
     useGoogleAPIs = false;
@@ -39,6 +39,7 @@ pkgs.callPackage (
     mkShell,
     openssl,
     pango,
+    jdk23,
     pkg-config,
     rustup,
     rustPlatform,
@@ -69,16 +70,17 @@ pkgs.callPackage (
     PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
     RUSTC_VERSION = "1.83.0";
     WEBKIT_DISABLE_DMABUF_RENDERER = 1;  # Again NVIDIA things.
-    JAVA_HOME = "/usr/lib/jvm/java-17-openjdk-amd64";
+    JAVA_HOME = "/usr/lib/jvm/jdk-23.0.2-oracle-x64";
 
     ANDROID_HOME = ANDROID_HOME;
-    ANDROID_NDK_ROOT = "${ANDROID_HOME}/ndk-bundle";
-    NDK_HOME = "${ANDROID_HOME}/ndk/22.0.7026061";
+    ANDROID_NDK_ROOT = "${ANDROID_HOME}/ndk/28.0.13004108";
+    NDK_HOME = "${ANDROID_HOME}/ndk/28.0.13004108";
     # Use the same buildToolsVersion here
     GRADLE_OPTS = "-Dorg.gradle.project.android.aapt2FromMavenOverride=${ANDROID_HOME}/build-tools/${buildToolsVersion}/aapt2";
 
     # https://github.com/rust-lang/rust-bindgen#environment-variables
     shellHook = ''
+      export JAVA_HOME=/usr/lib/jvm/jdk-23.0.2-oracle-x64
       export PATH="''${CARGO_HOME:-~/.cargo}/bin":"$PATH"
       export PATH="''${RUSTUP_HOME:-~/.rustup}/toolchains/$RUSTC_VERSION-${stdenv.hostPlatform.rust.rustcTarget}/bin":"$PATH"
      '';

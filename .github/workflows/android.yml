@@ -29,12 +29,6 @@ jobs:
           libayatana-appindicator3-dev \
           librsvg2-dev
 
-    - name: Set up JDK 23
-      uses: actions/setup-java@v2
-      with:
-        distribution: 'adopt'
-        java-version: '23'
-
     - name: Set up Rust
       uses: actions-rs/toolchain@v1
       with:
@@ -46,6 +40,8 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y wget unzip
+        wget https://download.oracle.com/java/23/latest/jdk-23_linux-x64_bin.deb
+        sudo dpkg -i jdk-23_linux-x64_bin.deb
         wget https://dl.google.com/android/repository/commandlinetools-linux-7302050_latest.zip -O sdk-tools.zip
         unzip sdk-tools.zip -d $HOME/android-sdk-temp
         mkdir -p $HOME/android-sdk/cmdline-tools/latest
