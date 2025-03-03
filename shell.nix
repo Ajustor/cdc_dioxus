@@ -2,9 +2,7 @@
   # pkgs ? import <nixpkgs> { },
 }:
 let
-  pkgs = import (fetchTarball("channel:nixpkgs-unstable")) {};
-
-  overrides = (builtins.fromTOML (builtins.readFile ./rust-toolchain.toml));
+  pkgs = import (fetchTarball("channel:nixpkgs-unstable")) { };
 
   buildToolsVersion = "30.0.3";
   androidComposition = pkgs.androidenv.composeAndroidPackages {
@@ -13,7 +11,7 @@ let
     platformToolsVersion = "35.0.2";
     buildToolsVersions = [ buildToolsVersion ];
     includeEmulator = true;
-    emulatorVersion = "35.4.6";
+    emulatorVersion = "35.4.8";
     platformVersions = [ "28" "29" "30" ];
     includeSources = false;
     includeSystemImages = false;
@@ -21,7 +19,7 @@ let
     abiVersions = [ "armeabi-v7a" "arm64-v8a" ];
     cmakeVersions = [ "3.10.2" ];
     includeNDK = true;
-    ndkVersions = ["22.0.7026061"];
+    ndkVersions = ["28.0.13004108"];
     useGoogleAPIs = false;
     useGoogleTVAddOns = false;
     includeExtras = [
@@ -69,8 +67,9 @@ pkgs.callPackage (
     ];
     GDK_BACKEND = "x11";  # NVIDIA might disagree otherwise.
     PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
-    RUSTC_VERSION = overrides.toolchain.channel;
+    RUSTC_VERSION = "1.83.0";
     WEBKIT_DISABLE_DMABUF_RENDERER = 1;  # Again NVIDIA things.
+    JAVA_HOME = "/usr/lib/jvm/java-17-openjdk-amd64";
 
     ANDROID_HOME = ANDROID_HOME;
     ANDROID_NDK_ROOT = "${ANDROID_HOME}/ndk-bundle";

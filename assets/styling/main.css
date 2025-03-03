@@ -28,3 +28,17 @@ a:hover {
   background-color: #1f1f1f;
   cursor: pointer;
 }
+
+#header,
+#footer {
+  position: absolute;
+  height: 2rem;
+}
+
+#header {
+  top: 0;
+}
+
+#footer {
+  bottom: 0;
+}

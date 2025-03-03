@@ -15,7 +15,7 @@ pub fn IndexLayout() -> Element {
       document::Link { rel: "icon", href: FAVICON }
       document::Link { rel: "stylesheet", href: MAIN_CSS }
 
-      nav {
+      nav { id: "header",
         if route == Routes::Rules {
           Link { to: Routes::Index, "<-" }
         } else {
@@ -24,5 +24,7 @@ pub fn IndexLayout() -> Element {
       }
 
       Outlet::<Routes> {}
+
+      div { id: "footer" }
     }
 }
