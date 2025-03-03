@@ -2,7 +2,11 @@ body {
   background-color: #0f1116;
   color: #ffffff;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin: 20px;
+  /* margin: 20px; */
+  margin: 0;
+  padding: 0;
+  height: 100dvh;
+  overflow: hidden;
 }
 
 #links {
@@ -31,14 +35,27 @@ a:hover {
 
 #header,
 #footer {
-  position: absolute;
-  height: 2rem;
+  position: sticky;
+  height: 3rem;
+  max-height: 3rem;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  background: #0f1116;
 }
 
 #header {
   top: 0;
+  border-bottom: solid gray 1px;
 }
 
 #footer {
   bottom: 0;
+  border-top: solid gray 1px;
+}
+
+main {
+  padding: 2rem;
+  height: calc(100vh - calc(5rem * 2));
+  overflow-y: scroll;
 }
