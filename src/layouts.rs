@@ -5,12 +5,12 @@ use crate::guide_router::Routes;
 const FAVICON: Asset = asset!("/assets/favicon.ico");
 const MAIN_CSS: Asset = asset!("/assets/styling/main.css");
 
-#[derive(serde::Deserialize)]
+#[derive(serde::Deserialize, Debug)]
 struct Citation {
     pub citation: String,
 }
 
-#[derive(serde::Deserialize)]
+#[derive(serde::Deserialize, Debug)]
 struct KaamelotApi {
     pub citation: Citation,
 }
@@ -21,7 +21,7 @@ pub fn IndexLayout() -> Element {
     let route = use_route::<Routes>();
     let mut quote = use_signal(|| "".to_string());
 
-    let fetch_new_quote = move || async move {
+    let fetch_new_quote = move |_| async move {
         let response = reqwest::get("https://kaamelott.chaudie.re/api/random/personnage/Perceval")
             .await
             .unwrap()
@@ -31,9 +31,6 @@ pub fn IndexLayout() -> Element {
 
         quote.set(response.citation.citation);
     };
-
-    #[warn(unused_must_use)]
-    fetch_new_quote();
 
     rsx! {
       // Global app resources
@@ -51,6 +48,7 @@ pub fn IndexLayout() -> Element {
       main { Outlet::<Routes> {} }
 
       div { id: "footer",
+        button { onclick: fetch_new_quote, "Nouvelle citation" }
         p { "{quote}" }
       }
     }
