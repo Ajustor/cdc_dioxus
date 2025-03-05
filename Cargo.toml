@@ -10,7 +10,6 @@ edition = "2021"
 dioxus = { version = "0.6.0", features = ["router"] }
 reqwest = { version = "0.12.12", features = ["json"] }
 serde = { version = "1.0.218", features = ["derive"] }
-openssl = { version = "0.10", features = ["vendored"] }
 
 [features]
 default = ["web"]
