@@ -39,7 +39,7 @@ pub fn IndexLayout() -> Element {
 
       nav { id: "header",
         if route == Routes::Rules {
-          Link { to: Routes::Index, "<-" }
+          Link { to: Routes::Index, "<- Retour" }
         } else {
           Link { to: Routes::Rules, "Règles" }
         }
