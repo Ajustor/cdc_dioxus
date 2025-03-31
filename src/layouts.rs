@@ -19,17 +19,22 @@ struct KaamelotApi {
 pub fn IndexLayout() -> Element {
     // Build cool things ✌️
     let route = use_route::<Routes>();
-    let mut quote = use_signal(|| "".to_string());
+    let mut quote = use_signal(|| "Réplique de Perceval".to_string());
 
     let fetch_new_quote = move |_| async move {
-        let response = reqwest::get("https://kaamelott.chaudie.re/api/random/personnage/Perceval")
-            .await
-            .unwrap()
-            .json::<KaamelotApi>()
-            .await
-            .unwrap();
-
-        quote.set(response.citation.citation);
+        quote.set("...".into());
+        let response = reqwest::Client::new()
+            .get("https://kaamelott.chaudie.re/api/random/personnage/Perceval")
+            .header("Access-Control-Allow-Origin", "*")
+            .header("Content-Type", "application/json")
+            .send()
+            .await;
+        if response.is_ok() {
+            let citation_body = response.unwrap().json::<KaamelotApi>().await.unwrap();
+            quote.set(citation_body.citation.citation);
+        } else {
+            quote.set("Le pigeon s'est perdu en chemin".into());
+        }
     };
 
     rsx! {
